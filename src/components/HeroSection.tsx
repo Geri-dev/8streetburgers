@@ -2,9 +2,13 @@ import { Button } from '@/components/ui/button';
 import { MapPin, ShoppingBag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 import mainBurgerImage from '../photos/main-burger.webp';
 
 export default function HeroSection() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [starAnimationComplete, setStarAnimationComplete] = useState(false);
 
   useEffect(() => {
@@ -50,10 +54,10 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight"
         >
-          <span className="text-white">The Best </span>
-          <span className="text-[#EBEB77]">Smash Burger</span>
+          <span className="text-white">{t.hero.title} </span>
+          <span className="text-[#EBEB77]">{t.hero.titleHighlight}</span>
           <br />
-          <span className="text-white">in Tirana</span>
+          <span className="text-white">{t.hero.titleIn}</span>
         </motion.h1>
         
         <motion.p
@@ -62,9 +66,9 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
         >
-          Perfectly smashed, caramelized beef patties with premium ingredients.
+          {t.hero.subtitle}
           <br />
-          Bold street-food flavor that hits different.
+          {t.hero.subtitle2}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -80,7 +84,7 @@ export default function HeroSection() {
             className="bg-[#EBEB77] hover:bg-[#E5E560] text-black font-bold text-lg px-8 py-6 w-full sm:w-auto"
           >
             <ShoppingBag className="mr-2" size={24} />
-            Order on Wolt
+            {t.hero.orderOnWolt}
           </Button>
           <Button
             onClick={() => window.open('https://maps.google.com/?q=Rruga+Brigada+e+VIII+Tirane', '_blank')}
@@ -89,7 +93,7 @@ export default function HeroSection() {
             className="border-2 !border-white !bg-transparent hover:!bg-white !text-white hover:!text-black font-bold text-lg px-8 py-6 w-full sm:w-auto transition-all"
           >
             <MapPin className="mr-2" size={24} />
-            Get Directions
+            {t.hero.getDirections}
           </Button>
         </motion.div>
 
@@ -149,17 +153,17 @@ export default function HeroSection() {
             >
               ⭐
             </motion.span>
-            <span className="font-semibold text-sm sm:text-base">4.8/5 Rating</span>
+            <span className="font-semibold text-sm sm:text-base">{t.hero.rating}</span>
           </div>
           <div className="hidden sm:block w-px h-6 bg-gray-600"></div>
           <div className="flex items-center space-x-2 px-2 sm:px-0">
             <span className="text-2xl">🍔</span>
-            <span className="font-semibold text-sm sm:text-base">Premium Smash Burgers</span>
+            <span className="font-semibold text-sm sm:text-base">{t.hero.premiumBurgers}</span>
           </div>
           <div className="hidden sm:block w-px h-6 bg-gray-600"></div>
           <div className="flex items-center space-x-2 px-2 sm:px-0">
             <span className="text-2xl">💰</span>
-            <span className="font-semibold text-sm sm:text-base">ALL 500-1,000</span>
+            <span className="font-semibold text-sm sm:text-base">{t.hero.priceRange}</span>
           </div>
         </div>
       </motion.div>

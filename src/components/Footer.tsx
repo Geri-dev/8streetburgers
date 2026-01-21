@@ -1,6 +1,10 @@
 import { Instagram, Phone, MapPin } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const t = translations[language];
   return (
     <footer className="bg-black border-t border-gray-800 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -8,16 +12,17 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <span className="text-[#EBEB77] font-bold text-lg">8 Street Burgers</span>
+              
+              <span className="text-white font-bold text-lg">8 Street Burgers</span>
             </div>
             <p className="text-gray-400 text-sm">
-              The best smash burger experience in Tirana. Premium quality, bold flavors, unbeatable value.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Contact Us</h3>
+            <h3 className="text-white font-bold text-lg mb-4">{t.footer.contactUs}</h3>
             <div className="space-y-3">
               <div className="flex items-start space-x-3 text-gray-400 text-sm">
                 <MapPin size={18} className="mt-1 flex-shrink-0 text-[#EBEB77]" />
@@ -34,8 +39,8 @@ export default function Footer() {
 
           {/* Hours & Social */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Hours & Social</h3>
-            <p className="text-gray-400 text-sm mb-4">Open Daily until 1:00 AM</p>
+            <h3 className="text-white font-bold text-lg mb-4">{t.footer.hoursAndSocial}</h3>
+            <p className="text-gray-400 text-sm mb-4">{t.footer.openDailyUntil}</p>
             <div className="flex space-x-4">
               <a
                 href="https://www.instagram.com/8streetburgerstirana/"
@@ -66,7 +71,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-500 text-sm">
-            © 2026 8 Street Burgers Tirana. All rights reserved.
+            {t.footer.copyright}
           </p>
         </div>
       </div>

@@ -1,11 +1,18 @@
-import { MapPin, Phone, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { motion } from 'framer-motion';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { MapPin, Phone, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function LocationSection() {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true });
+  const { language } = useLanguage();
+  const t = translations[language];
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
   return (
     <section id="location" className="py-20 bg-[#0A0A0A]">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,10 +24,11 @@ export default function LocationSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Visit <span className="text-[#EBEB77]">Us</span>
+            {t.location.title}{" "}
+            <span className="text-[#EBEB77]">{t.location.titleHighlight}</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Come experience the best smash burger in Tirana. We're waiting for you!
+            {t.location.subtitle}
           </p>
         </motion.div>
 
@@ -29,7 +37,11 @@ export default function LocationSection() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
             className="space-y-6"
           >
             <Card className="bg-[#1A1A1A] border-[#2A2A2A]">
@@ -39,9 +51,11 @@ export default function LocationSection() {
                     <MapPin size={24} className="text-[#EBEB77]" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg mb-2">Address</h3>
-                    <p className="text-gray-400">Rruga Brigada e VIII</p>
-                    <p className="text-gray-400">Tiranë 1111, Albania</p>
+                    <h3 className="text-white font-bold text-lg mb-2">
+                      {t.location.address}
+                    </h3>
+                    <p className="text-gray-400">{t.location.addressLine1}</p>
+                    <p className="text-gray-400">{t.location.addressLine2}</p>
                   </div>
                 </div>
               </CardContent>
@@ -54,7 +68,9 @@ export default function LocationSection() {
                     <Phone size={24} className="text-[#EBEB77]" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg mb-2">Phone</h3>
+                    <h3 className="text-white font-bold text-lg mb-2">
+                      {t.location.phone}
+                    </h3>
                     <a
                       href="tel:+355698513997"
                       className="text-gray-400 hover:text-[#EBEB77] transition-colors"
@@ -73,9 +89,11 @@ export default function LocationSection() {
                     <Clock size={24} className="text-[#EBEB77]" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg mb-2">Hours</h3>
-                    <p className="text-gray-400">Open Daily</p>
-                    <p className="text-gray-400">Closes at 1:00 AM</p>
+                    <h3 className="text-white font-bold text-lg mb-2">
+                      {t.location.hours}
+                    </h3>
+                    <p className="text-gray-400">{t.location.openDaily}</p>
+                    <p className="text-gray-400">{t.location.closesAt}</p>
                   </div>
                 </div>
               </CardContent>
@@ -84,23 +102,26 @@ export default function LocationSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-8 sm:mt-6 mb-6 sm:mb-0">
               <Button
-                onClick={() => window.open('tel:+355698513997')}
+                onClick={() => window.open("tel:+355698513997")}
                 size="lg"
                 className="bg-[#EBEB77] hover:bg-[#E5E560] text-black font-bold flex-1 w-full sm:w-auto min-h-[48px] py-4 sm:py-6 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
               >
                 <Phone className="mr-2" size={20} />
-                Call Now
+                {t.location.callNow}
               </Button>
               <Button
                 onClick={() =>
-                  window.open('https://maps.google.com/?q=Rruga+Brigada+e+VIII+Tirane', '_blank')
+                  window.open(
+                    "https://maps.google.com/?q=Rruga+Brigada+e+VIII+Tirane",
+                    "_blank",
+                  )
                 }
                 size="lg"
                 variant="outline"
                 className="border-2 !border-white !bg-transparent hover:!bg-white !text-white hover:!text-black font-bold flex-1 w-full sm:w-auto min-h-[48px] py-4 sm:py-6 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
               >
                 <MapPin className="mr-2" size={20} />
-                Get Directions
+                {t.location.getDirections}
               </Button>
             </div>
           </motion.div>
@@ -109,19 +130,22 @@ export default function LocationSection() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 0.6,
+              delay: 0.3,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
             className="h-[500px] rounded-lg overflow-hidden shadow-lg"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.6744!2d19.8186!3d41.3275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE5JzM5LjAiTiAxOcKwNDknMDcuMCJF!5e0!3m2!1sen!2s!4v1234567890"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.206041702792!2d19.81427336943174!3d41.321616995548936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135031773c5e0ff5%3A0x2bd4f22ee00ac9f3!2s8%20Street%20Burgers%20Tirana!5e1!3m2!1sen!2s!4v1769038249625!5m2!1sen!2s"
+              width="600"
+              height="450"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="8 Street Burgers Location"
-            ></iframe>
+              
+            >
+              
+            </iframe>
           </motion.div>
         </div>
       </div>

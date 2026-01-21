@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function Navigation() {
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -42,37 +46,61 @@ export default function Navigation() {
               onClick={() => scrollToSection('about')}
               className="text-white hover:text-[#EBEB77] transition-colors font-semibold"
             >
-              About
+              {t.nav.about}
             </button>
             <button
               onClick={() => scrollToSection('why')}
               className="text-white hover:text-[#EBEB77] transition-colors font-semibold"
             >
-              Why Us
+              {t.nav.whyUs}
             </button>
             <button
               onClick={() => scrollToSection('menu')}
               className="text-white hover:text-[#EBEB77] transition-colors font-semibold"
             >
-              Menu
+              {t.nav.menu}
             </button>
             <button
               onClick={() => scrollToSection('reviews')}
               className="text-white hover:text-[#EBEB77] transition-colors font-semibold"
             >
-              Reviews
+              {t.nav.reviews}
             </button>
             <button
               onClick={() => scrollToSection('location')}
               className="text-white hover:text-[#EBEB77] transition-colors font-semibold"
             >
-              Location
+              {t.nav.location}
             </button>
+            {/* Language Switcher */}
+            <div className="flex items-center space-x-1 bg-[#1A1A1A] rounded-lg px-2 py-1 border border-[#2A2A2A]">
+              <button
+                onClick={() => setLanguage('sq')}
+                className={`px-3 py-1 rounded text-sm font-semibold transition-colors ${
+                  language === 'sq'
+                    ? 'bg-[#EBEB77] text-black'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                SQ
+              </button>
+              <span className="text-gray-600">|</span>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded text-sm font-semibold transition-colors ${
+                  language === 'en'
+                    ? 'bg-[#EBEB77] text-black'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                EN
+              </button>
+            </div>
             <Button
               onClick={() => window.open('https://wolt.com/en/alb/tirana/restaurant/eight-street-burgers', '_blank')}
               className="bg-[#EBEB77] hover:bg-[#E5E560] text-black font-bold"
             >
-              Order Now
+              {t.nav.orderNow}
             </Button>
           </div>
 
@@ -94,37 +122,61 @@ export default function Navigation() {
               onClick={() => scrollToSection('about')}
               className="block w-full text-left text-white hover:text-[#EBEB77] transition-colors font-semibold py-2"
             >
-              About
+              {t.nav.about}
             </button>
             <button
               onClick={() => scrollToSection('why')}
               className="block w-full text-left text-white hover:text-[#EBEB77] transition-colors font-semibold py-2"
             >
-              Why Us
+              {t.nav.whyUs}
             </button>
             <button
               onClick={() => scrollToSection('menu')}
               className="block w-full text-left text-white hover:text-[#EBEB77] transition-colors font-semibold py-2"
             >
-              Menu
+              {t.nav.menu}
             </button>
             <button
               onClick={() => scrollToSection('reviews')}
               className="block w-full text-left text-white hover:text-[#EBEB77] transition-colors font-semibold py-2"
             >
-              Reviews
+              {t.nav.reviews}
             </button>
             <button
               onClick={() => scrollToSection('location')}
               className="block w-full text-left text-white hover:text-[#EBEB77] transition-colors font-semibold py-2"
             >
-              Location
+              {t.nav.location}
             </button>
+            {/* Language Switcher - Mobile */}
+            <div className="flex items-center justify-center space-x-1 bg-[#1A1A1A] rounded-lg px-2 py-1 border border-[#2A2A2A] w-full">
+              <button
+                onClick={() => setLanguage('sq')}
+                className={`px-3 py-1 rounded text-sm font-semibold transition-colors ${
+                  language === 'sq'
+                    ? 'bg-[#EBEB77] text-black'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                SQ
+              </button>
+              <span className="text-gray-600">|</span>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded text-sm font-semibold transition-colors ${
+                  language === 'en'
+                    ? 'bg-[#EBEB77] text-black'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                EN
+              </button>
+            </div>
             <Button
               onClick={() => window.open('https://wolt.com/en/alb/tirana/restaurant/eight-street-burgers', '_blank')}
               className="w-full bg-[#EBEB77] hover:bg-[#E5E560] text-black font-bold"
             >
-              Order Now
+              {t.nav.orderNow}
             </Button>
           </div>
         </div>

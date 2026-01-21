@@ -2,9 +2,15 @@ import { Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function ReviewsSection() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true });
+  
+  // Reviews remain in English as they are from actual customer reviews
   const reviews = [
     {
       name: 'Ardit K.',
@@ -37,7 +43,7 @@ export default function ReviewsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            What Our <span className="text-[#EBEB77]">Customers Say</span>
+            {t.reviews.title} <span className="text-[#EBEB77]">{t.reviews.titleHighlight}</span>
           </h2>
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="flex">
@@ -47,7 +53,7 @@ export default function ReviewsSection() {
             </div>
             <span className="text-white font-bold text-xl">4.8 / 5</span>
           </div>
-          <p className="text-gray-400 text-lg">Based on 37 Google Reviews</p>
+          <p className="text-gray-400 text-lg">{t.reviews.subtitle}</p>
         </motion.div>
 
         {/* Reviews Grid */}
@@ -99,7 +105,7 @@ export default function ReviewsSection() {
             rel="noopener noreferrer"
             className="text-[#EBEB77] hover:text-[#E5E560] font-semibold text-lg transition-colors"
           >
-            Read All Reviews on Google →
+            {t.reviews.readAllReviews}
           </a>
         </motion.div>
       </div>

@@ -1,18 +1,15 @@
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 import nycImage from '../photos/NYC.webp';
 import anotherBurgerImage from '../photos/another burger.webp';
 
 export default function AboutSection() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2, triggerOnce: true });
-  const highlights = [
-    'Perfectly smashed, caramelized beef patties',
-    'Fresh, soft buns baked daily',
-    'Premium quality beef',
-    'Signature homemade sauces',
-    'Fast, friendly service and great vibe',
-  ];
 
   return (
     <section id="about" className="py-20 bg-[#0A0A0A]">
@@ -25,22 +22,18 @@ export default function AboutSection() {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-              Our Story
+              {t.about.title}
             </h2>
             <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-              At 8 Street Burgers, we're obsessed with one thing: creating the perfect smash burger. 
-              Every patty is smashed to order on a scorching hot griddle, creating those crispy, 
-              caramelized edges that burger lovers crave.
+              {t.about.paragraph1} {t.about.paragraph1b}
             </p>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              We source only the highest quality beef, pair it with fresh ingredients, and top it 
-              with our signature homemade sauces. The result? A burger experience that's bold, 
-              flavorful, and unforgettable.
+              {t.about.paragraph2}
             </p>
 
             {/* Highlights */}
             <div className="space-y-4">
-              {highlights.map((highlight, index) => (
+              {t.about.highlights.map((highlight, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="flex-shrink-0 w-6 h-6 bg-[#EBEB77] rounded-full flex items-center justify-center mt-1">
                     <Check size={16} className="text-black" />

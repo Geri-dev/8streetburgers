@@ -2,41 +2,24 @@ import { Flame, Leaf, Zap, Award, DollarSign, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
+
+const iconMap = {
+  Flame,
+  Leaf,
+  Zap,
+  Award,
+  DollarSign,
+  Clock,
+};
 
 export default function WhySection() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true });
-  const features = [
-    {
-      icon: Flame,
-      title: 'Crispy Smash Patties',
-      description: 'Perfectly caramelized edges with juicy centers, smashed to perfection every time.',
-    },
-    {
-      icon: Leaf,
-      title: 'Fresh Ingredients',
-      description: 'Daily-sourced produce and premium beef for maximum flavor and quality.',
-    },
-    {
-      icon: Zap,
-      title: 'Bold Street Flavors',
-      description: 'Urban-inspired taste with signature sauces that pack a punch.',
-    },
-    {
-      icon: Award,
-      title: 'Consistent Quality',
-      description: 'Every burger meets our high standards. No compromises, ever.',
-    },
-    {
-      icon: DollarSign,
-      title: 'Great Value',
-      description: 'Premium quality at fair prices. ALL 500-1,000 per person.',
-    },
-    {
-      icon: Clock,
-      title: 'Open Late',
-      description: 'Serving you daily until 1:00 AM. Late-night cravings satisfied.',
-    },
-  ];
+  
+  const iconNames = ['Flame', 'Leaf', 'Zap', 'Award', 'DollarSign', 'Clock'] as const;
 
   return (
     <section id="why" className="py-20 bg-[#0A0A0A]">
@@ -49,17 +32,17 @@ export default function WhySection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Why Choose <span className="text-[#EBEB77]">8 Street Burgers</span>
+            {t.why.title} <span className="text-[#EBEB77]">{t.why.titleHighlight}</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            We're not just another burger joint. Here's what makes us different.
+            {t.why.subtitle}
           </p>
         </motion.div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
+          {t.why.features.map((feature, index) => {
+            const Icon = iconMap[iconNames[index]];
             return (
               <motion.div
                 key={index}

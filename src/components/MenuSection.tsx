@@ -2,32 +2,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/lib/translations';
 import mainBurgerImage from '../photos/main-burger.webp';
 import smashingImage from '../photos/smashing.webp';
 import menuSmashImage from '../photos/menu smash.webp';
 
 export default function MenuSection() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true });
-  const menuItems = [
-    {
-      name: 'Classic Smash Burger',
-      description: 'Double smashed beef patties, American cheese, lettuce, tomato, pickles, special sauce',
-      price: 'ALL 600',
-      image: mainBurgerImage,
-    },
-    {
-      name: 'Bacon Smash',
-      description: 'Smashed patties, crispy bacon, cheddar cheese, caramelized onions, BBQ sauce',
-      price: 'ALL 750',
-      image: smashingImage,
-    },
-    {
-      name: 'Combo Meal',
-      description: 'Any burger + crispy fries + drink. The complete experience.',
-      price: 'ALL 900',
-      image: menuSmashImage,
-    },
-  ];
+  
+  const menuItems = t.menu.items.map((item, index) => ({
+    ...item,
+    image: [mainBurgerImage, smashingImage, menuSmashImage][index],
+  }));
 
   return (
     <section id="menu" className="py-20 bg-[#0A0A0A]">
@@ -40,10 +29,10 @@ export default function MenuSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Our <span className="text-[#EBEB77]">Menu</span>
+            {t.menu.title} <span className="text-[#EBEB77]">{t.menu.titleHighlight}</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Simple menu, exceptional quality. Every item crafted with care.
+            {t.menu.subtitle}
           </p>
         </motion.div>
 
@@ -92,9 +81,9 @@ export default function MenuSection() {
             size="lg"
             className="bg-[#EBEB77] hover:bg-[#E5E560] text-black font-bold text-lg px-8"
           >
-            Order Full Menu on Wolt
+            {t.menu.orderFullMenu}
           </Button>
-          <p className="text-gray-500 text-sm mt-4">Dine-in & Takeout Available</p>
+          <p className="text-gray-500 text-sm mt-4">{t.menu.dineInTakeout}</p>
         </motion.div>
       </div>
     </section>
